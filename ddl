@@ -33,7 +33,7 @@ create table asignacion (
 id_asignacion int primary key auto_increment,
 empleado_id int,
 proyecto_id int,
-asi_fecha datetime,
+asi_fecha date,
 asi_cant_horas double
 );
 
