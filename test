@@ -1,0 +1,30 @@
+/* PRUEBA RENDICION DE HORAS*/
+call rendicionDeHoras(2, 1, '2022-02-03', 6);
+call rendicionDeHoras(3, 1, '2022-02-03', 6);
+call rendicionDeHoras(1, 1, '2022-02-03', 6);
+call rendicionDeHoras(4, 3, '2022-02-03', 6);
+call rendicionDeHoras(3, 2, '2022-02-05', 6);
+call rendicionDeHoras(2, 2, '2022-02-06', 6);
+call rendicionDeHoras(1, 2, '2022-02-06', 6);
+call rendicionDeHoras(5, 2, '2022-02-05', 6);
+call rendicionDeHoras(2, 2, '2022-02-08', 6);
+call rendicionDeHoras(3, 4, '2022-03-09', 6);
+call rendicionDeHoras(4, 4, '2022-03-09', 6);
+call rendicionDeHoras(5, 4, '2022-03-10', 6);
+call rendicionDeHoras(1, 4, '2022-03-20', 6);
+call rendicionDeHoras(1, 3, '2022-02-23', 8);
+call rendicionDeHoras(2, 3, '2022-02-23', 10);
+call rendicionDeHoras(3, 3, '2022-02-23', 8);
+
+/*PRUEBA SUPERANDO MAXIMO DE HORAS DE UN USUARIO (SI SUPERA LAS HORAS LOS DATOS NO SE ALMACENAN EN ASIGNACION)*/
+call rendicionDeHoras(3, 4, '2022-02-28', 20);
+
+/* PRUEBA LIQUIDACION MENSUAL*/
+
+call calcularLiquidacionMensual(1, 2);
+call calcularLiquidacionMensual(2, 2);
+call calcularLiquidacionMensual(3, 2);
+call calcularLiquidacionMensual(4, 3);
+
+
+
