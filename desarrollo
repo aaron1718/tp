@@ -1,0 +1,24 @@
+DELIMITER $$
+CREATE PROCEDURE rendicionDeHoras(in legajo int, in proyecto int, in anioMesDia date, in horas int)
+begin
+select a.horas_max_diarias into @max from empleados a where legajo = id_empleado;
+if horas <= @max then
+begin
+    insert into asignacion (empleado_id, proyecto_id, asi_fecha, asi_cant_horas)
+    values(legajo, proyecto, anioMesDia, horas);
+end;
+end if;
+end
+$$
+DELIMITER $$
+CREATE PROCEDURE calcularLiquidacionMensual(in id_cliente int, in periodo_mes int)
+begin
+
+select sum(a.asi_cant_horas) into @horas from asignacion a where id_cliente = proyecto_id and month(asi_fecha)=periodo_mes;
+
+select c.precio_hora into @precio from cliente_proyecto c where id_cliente = id_proyecto;
+
+insert into liquidacion (cliente,horas,periodo,total) values (id_cliente,@horas,periodo_mes,truncate(@horas*@precio,2));
+
+end
+$$
