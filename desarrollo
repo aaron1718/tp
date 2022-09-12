@@ -11,7 +11,7 @@ end if;
 end
 $$
 DELIMITER $$
-CREATE PROCEDURE calcularLiquidacionMensual(in id_cliente int, in periodo_mes int)
+CREATE PROCEDURE calcularLiquidacionMensual(in periodo_mes int)
 begin
 
 begin
