@@ -14,7 +14,7 @@ DELIMITER $$
 CREATE PROCEDURE calcularLiquidacionMensual(in periodo_mes int)
 begin
 
-begin
+
 select sum(a.asi_cant_horas) into @horasuno from asignacion a where 1=proyecto_id and month(asi_fecha)=periodo_mes;
 select sum(a.asi_cant_horas) into @horasdos from asignacion a where 2=proyecto_id and month(asi_fecha)=periodo_mes;
 select sum(a.asi_cant_horas) into @horastres from asignacion a where 3=proyecto_id and month(asi_fecha)=periodo_mes;
@@ -33,6 +33,6 @@ insert into liquidacion (cliente,horas,periodo,total) values
 (4,@horascuatro,periodo_mes,truncate(@horascuatro*@precio4,2));
 
 
-end
+
 end
 $$
