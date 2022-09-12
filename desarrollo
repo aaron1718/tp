@@ -14,11 +14,25 @@ DELIMITER $$
 CREATE PROCEDURE calcularLiquidacionMensual(in id_cliente int, in periodo_mes int)
 begin
 
-select sum(a.asi_cant_horas) into @horas from asignacion a where id_cliente = proyecto_id and month(asi_fecha)=periodo_mes;
+begin
+select sum(a.asi_cant_horas) into @horasuno from asignacion a where 1=proyecto_id and month(asi_fecha)=periodo_mes;
+select sum(a.asi_cant_horas) into @horasdos from asignacion a where 2=proyecto_id and month(asi_fecha)=periodo_mes;
+select sum(a.asi_cant_horas) into @horastres from asignacion a where 3=proyecto_id and month(asi_fecha)=periodo_mes;
+select sum(a.asi_cant_horas) into @horascuatro from asignacion a where 4=proyecto_id and month(asi_fecha)=periodo_mes;
 
-select c.precio_hora into @precio from cliente_proyecto c where id_cliente = id_proyecto;
+select c.precio_hora into @precio1 from cliente_proyecto c where id_proyecto=1;
+select c.precio_hora into @precio2 from cliente_proyecto c where id_proyecto=2;
+select c.precio_hora into @precio3 from cliente_proyecto c where id_proyecto=3;
+select c.precio_hora into @precio4 from cliente_proyecto c where id_proyecto=4;
 
-insert into liquidacion (cliente,horas,periodo,total) values (id_cliente,@horas,periodo_mes,truncate(@horas*@precio,2));
 
+insert into liquidacion (cliente,horas,periodo,total) values 
+(1,@horasuno,periodo_mes,truncate(@horasuno*@precio1,2)),
+(2,@horasdos,periodo_mes,truncate(@horasdos*@precio2,2)),
+(3,@horastres,periodo_mes,truncate(@horastres*@precio3,2)),
+(4,@horascuatro,periodo_mes,truncate(@horascuatro*@precio4,2));
+
+
+end
 end
 $$
