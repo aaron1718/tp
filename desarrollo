@@ -36,3 +36,74 @@ insert into liquidacion (cliente,horas,periodo,total) values
 
 end
 $$
+
+ALTER TABLE asignacion 
+change column id_asignacion id_asignacion int;
+
+ALTER TABLE cliente_proyecto 
+change column id_proyecto id_proyecto int;
+
+ALTER TABLE empleados 
+change column id_empleado id_empleado int;
+
+ALTER TABLE liquidacion 
+change column id_liquidacion id_liquidacion int;
+
+create table numerador(
+tabla varchar(255) not null primary key,
+siguiente int
+);
+
+
+insert into numerador (tabla) values ('asignacion'), ('cliente_proyecto'), ('empleados'), ('liquidacion');
+update numerador set siguiente = 1 where tabla='asignacion';
+update numerador set siguiente = 5 where tabla='cliente_proyecto';
+update numerador set siguiente = 6 where tabla='empleados';
+update numerador set siguiente = 1 where tabla='liquidacion';
+
+
+DELIMITER $$
+create trigger numerador_asig before insert on asignacion
+for each row
+begin
+select a.siguiente into @sig from numerador a where tabla='asignacion';
+
+set NEW.id_asignacion = @sig;
+update numerador set siguiente = @sig+1 where tabla='asignacion';
+
+end
+$$
+
+DELIMITER $$
+create trigger numerador_emp before insert on empleados
+for each row
+begin
+
+select a.siguiente into @sig from numerador a where tabla='empleados';
+
+set NEW.id_empleado = @sig;
+update numerador set siguiente = @sig+1 where tabla='empleados';
+
+end
+$$
+
+DELIMITER $$
+create trigger numerador_cli before insert on cliente_proyecto
+for each row
+begin
+
+select a.siguiente into @sig from numerador a where tabla = 'cliente_proyecto';
+set NEW.id_proyecto = @sig;
+update numerador set siguiente = @sig+1 where tabla='cliente_proyecto';
+end
+$$
+
+DELIMITER $$
+create trigger numerador_liq before insert on liquidacion
+for each row
+begin
+select a.siguiente into @sig from numerador a where tabla='liquidacion';
+set NEW.id_liquidacion = @sig;
+update numerador set siguiente = @sig+1 where tabla='liquidacion';
+end
+$$
